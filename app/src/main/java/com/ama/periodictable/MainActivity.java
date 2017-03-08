@@ -3,6 +3,11 @@ package com.ama.periodictable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,8 +18,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private String TAG = "EARL IS REAL";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +49,20 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //PROGRAM STARTS HERE
+        Database database = new Database(MainActivity.this);
+
+//        Log.d(TAG, "onCreate: " + database.getElement(95).getName());
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+        StaggeredGridLayoutManager layoutManager =
+                new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+
+        ElementAdapter adapter = new ElementAdapter(database.getElements());
+        Log.d(TAG, "onCreate: adapter elements size -> " +adapter.getItemCount());
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
