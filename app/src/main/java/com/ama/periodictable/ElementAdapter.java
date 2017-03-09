@@ -1,10 +1,13 @@
 package com.ama.periodictable;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -43,9 +46,10 @@ public class ElementAdapter extends RecyclerView.Adapter<ElementAdapter.ViewHold
         return elements.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView number, symbol, name, weight;
-        public ViewHolder(View itemView) {
+
+        public ViewHolder(final View itemView) {
             super(itemView);
 
             number = (TextView) itemView.findViewById(R.id.number);
@@ -54,4 +58,6 @@ public class ElementAdapter extends RecyclerView.Adapter<ElementAdapter.ViewHold
             weight = (TextView) itemView.findViewById(R.id.weight);
         }
     }
+
+
 }
